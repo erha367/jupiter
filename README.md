@@ -36,46 +36,20 @@ kill -1 pid   #main进程id
 ## 其他
 ### 代码结构
 ```
-jupyter
-├── Makefile
-├── application				/*- 应用目录 -*/
-│   ├── bootstrap.go
-│   ├── controller			//控制器
-│   ├── database			//数据库相关
-│   ├── entity				//参数验证
-│   ├── library				//通用类库（通常不依赖业务）
-│   ├── model               //模型
-│   ├── service             //服务层
-│   ├── utils				//通用类库（依赖业务）
-│   └── ytasks				//异步队列
-├── commands				/*- 脚本相关 -*/
-│   ├── listener.go         //监听定时任务
-│   └── publish.go          //监听Redis
-├── config                  /*- 配置相关 -*/
-│   ├── app.go
-│   ├── app_dev.json
-│   ├── app_prod.json
-│   └── app_test.json
-├── go.mod
-├── go.sum
-├── log                      	/*- 日志 -*/
-├── main.go    				 	/*- 入库文件（重要！） -*/	
-├── readme.md
-├── router                   	/*- 路由 -*/
-│   ├── api.go
-│   └── middleware           	/*- 中间件 -*/
-├── sql							/*- 修改表结构sql -*/
-│   └── init.sql
-├── static						/*- 静态资源 -*/
-│   └── x.html
-├── test 						/*- 测试用例 -*/
-│   ├── curl_test.go
-│   └── model_test.go
-└── vendor 						/*- 扩展 -*/
-    ├── github.com
-    ├── go.mongodb.org
-    ├── go.uber.org
-    ├── golang.org
-    ├── gopkg.in
-    └── modules.txt
+jupyter/
+├── application
+│   ├── controller
+│   ├── database
+│   ├── entity
+│   │   └── form
+│   ├── library
+│   ├── model
+│   ├── service
+│   └── utils
+├── config
+├── router
+│   └── middleware
+├── sql
+├── static
+└── test
 ```
