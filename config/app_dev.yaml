@@ -1,0 +1,60 @@
+---
+#是否开启
+debug: true
+#运行端口
+httpPort: 80
+httpsPort: 443
+#机器编号（1-N）
+sn: 1
+#机器总数（N）
+machines: 1
+#项目名称
+name: gowebcast
+#域名
+domain: webcast.eeocn.com
+#数据库配置
+databases:
+  driver: mysql
+  list:
+    - name: eo_oslive
+      username: root
+      password: '123456'
+      port: 3306
+      host: 127.0.0.1
+      type: master
+      maxIdleConnections: 40
+      maxOpenConnections: 100
+    - name: eo_oslive
+      username: root
+      password: '123456'
+      port: 3306
+      host: 127.0.0.1
+      type: slave
+      maxIdleConnections: 40
+      maxOpenConnections: 100
+#日志配置
+logger:
+  path: "./log/"
+  infoFile: gowebcast-info
+  errorFile: gowebcast-error
+#redis配置
+redis:
+  host: 127.0.0.1:6379
+  password: ''
+  db: 0
+#kafka配置（未启用）
+kafka:
+  brokers: 10.0.15.131:9092,10.0.15.132:9092,10.0.15.133:9092
+  topic: ys-t1
+  groupId: cast1
+#项目依赖api
+urls:
+  eoOs:
+    host: http://127.0.0.1:89
+    getCourseInfo: "/course/class/info"
+  course:
+    host: http://course13.eeo.dom:61170
+    getCourseInfo: "/classes/get"
+#相关证书（https使用）
+certFile: "/Users/yangsen/GolandProjects/jupyter/server.crt"
+keyFile: "/Users/yangsen/GolandProjects/jupyter/server.key"

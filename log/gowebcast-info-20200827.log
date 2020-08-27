@@ -1,0 +1,2 @@
+{"level":"INFO","ts":"2020-08-27 14:07:53","file":"middleware/logger.go:21","msg":"接收到请求：","ip":"10.0.133.123","method":"GET","path":"/ping","uuid":"cfcedc4f-416c-4292-9367-d0a54cb5a431"}
+{"level":"INFO","ts":"2020-08-27 14:07:53","file":"middleware/logger.go:34","msg":"请求结束","consume":"1.170736ms ms","status":200,"uuid":"cfcedc4f-416c-4292-9367-d0a54cb5a431"}
