@@ -23,7 +23,7 @@ func Queue(ctx context.Context) {
 	)
 	YClient = ser.GetClient()
 	//函数注册，类似laravel的event-listener
-	ser.Add("group1", "addRec", Ad)
+	ser.Add("group1", "addRec", Add)
 	ser.Run("group1", 1)
 
 	//退出

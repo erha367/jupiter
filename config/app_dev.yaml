@@ -56,5 +56,5 @@ urls:
     host: http://course13.eeo.dom:61170
     getCourseInfo: "/classes/get"
 #相关证书（https使用）
-certFile: "/Users/yangsen/GolandProjects/jupyter/server.crt"
-keyFile: "/Users/yangsen/GolandProjects/jupyter/server.key"
+certFile: "/project/jupyter/server.crt"
+keyFile: "/project/jupyter/server.key"
