@@ -14,12 +14,15 @@
 6. 热重启
 7. https|http 双端口支持
 ## 运行环境依赖
-- Unix
+- Centos
 - mysql
 - redis
 ## 编译 & 运行
 ```shell script
 # 版本要求 golang 14.0 +
+# go配置了代理
+go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.io,direct
 # 1、进入到项目目录
 go mod tidy
 # 2、编译项目（mack开发环境-->linux测试、生产环境）
