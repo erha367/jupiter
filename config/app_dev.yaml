@@ -9,7 +9,7 @@ sn: 1
 #机器总数（N）
 machines: 1
 #项目名称
-name: gowebcast
+name: jupyter
 #域名
 domain: webcast.eeocn.com
 #数据库配置

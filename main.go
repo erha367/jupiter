@@ -1,11 +1,13 @@
 package main
 
 import (
+	"context"
 	"github.com/fvbock/endless"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"jupyter/application"
 	"jupyter/application/database"
+	"jupyter/application/library"
 	"jupyter/config"
 	"jupyter/router"
 	"log"
@@ -16,12 +18,16 @@ import (
 )
 
 func main() {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	//系统初始化
 	defer database.CloseDatabases()
 	application.Bootstrap()
 	database.InitDatabases()
 	database.InitRedis()
 	gin.SetMode(config.Mode())
+	//异步队列
+	go library.Queue(ctx)
 	//路由
 	apiRouter := router.ApiRouter()
 	//等待组-热重启相关
