@@ -22,7 +22,7 @@
 # 版本要求 golang 14.0 +
 # 1、进入到项目目录
 go mod tidy
-# 2、编译项目（linux平台）
+# 2、编译项目（mack开发环境-->linux测试、生产环境）
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go
 # 编译后的二进制文件（main）连同config目录一起放到线上项目目录即可（确保项目目录权限755）
 # 运行
@@ -37,19 +37,19 @@ kill -1 pid   #main进程id
 ### 代码结构
 ```
 jupyter/
-├── application
-│   ├── controller
-│   ├── database
-│   ├── entity
+├── application         //应用目录
+│   ├── controller      //控制器
+│   ├── database        //mysql & redis 核心
+│   ├── entity          //参数验证
 │   │   └── form
-│   ├── library
-│   ├── model
-│   ├── service
-│   └── utils
-├── config
-├── router
-│   └── middleware
-├── sql
-├── static
-└── test
+│   ├── library         //通用扩展程序
+│   ├── model           //模型
+│   ├── service         //服务层逻辑
+│   └── utils           //公共函数、变量
+├── config              //配置文件
+├── router              //路由
+│   └── middleware      //中间件
+├── sql                 //建表sql
+├── static              //html等静态资源
+└── test                //测试用例
 ```
