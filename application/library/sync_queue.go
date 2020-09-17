@@ -4,7 +4,7 @@ import (
 	"context"
 	ytask "github.com/gojuukaze/YTask/v2"
 	"github.com/gojuukaze/YTask/v2/server"
-	"jupyter/config"
+	"jupiter/config"
 	"strings"
 )
 

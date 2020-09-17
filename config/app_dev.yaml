@@ -9,7 +9,7 @@ sn: 1
 #机器总数（N）
 machines: 1
 #项目名称
-name: jupyter
+name: jupiter
 #域名
 domain: webcast.eeocn.com
 #数据库配置
@@ -56,5 +56,5 @@ urls:
     host: http://course13.eeo.dom:61170
     getCourseInfo: "/classes/get"
 #相关证书（https使用）
-certFile: "/project/jupyter/server.crt"
-keyFile: "/project/jupyter/server.key"
+certFile: "/project/jupiter/server.crt"
+keyFile: "/project/jupiter/server.key"

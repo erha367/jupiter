@@ -5,8 +5,8 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"go.uber.org/zap"
-	"jupyter/application/library"
-	"jupyter/config"
+	"jupiter/application/library"
+	"jupiter/config"
 	"log"
 	"time"
 )

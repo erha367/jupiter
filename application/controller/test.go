@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"jupyter/application/library"
+	"jupiter/application/library"
 )
 
 //接口demo

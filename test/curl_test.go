@@ -2,7 +2,7 @@ package test
 
 import (
 	"encoding/json"
-	"jupyter/application/library"
+	"jupiter/application/library"
 	"strconv"
 	"testing"
 )

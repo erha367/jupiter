@@ -2,8 +2,8 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"jupyter/application/controller"
-	"jupyter/router/middleware"
+	"jupiter/application/controller"
+	"jupiter/router/middleware"
 )
 
 func ApiRouter() (router *gin.Engine) {

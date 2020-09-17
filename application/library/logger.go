@@ -5,7 +5,7 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"io"
-	"jupyter/config"
+	"jupiter/config"
 	"time"
 )
 

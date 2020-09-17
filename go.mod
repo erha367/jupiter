@@ -1,4 +1,4 @@
-module jupyter
+module jupiter
 
 go 1.14
 

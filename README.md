@@ -1,4 +1,4 @@
-# jupyter 基于Gin实现的web框架
+# jupiter 基于Gin实现的web框架
 #### 注意！要根据实际情况修改配置！！！
 ## 上线须知（重要）
 1. 所有上线分支均为master
@@ -39,7 +39,7 @@ kill -1 pid   #main进程id
 ## 其他
 ### 代码结构
 ```
-jupyter/
+jupiter/
 ├── application         //应用目录
 │   ├── controller      //控制器
 │   ├── database        //mysql & redis 核心

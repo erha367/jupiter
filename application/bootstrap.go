@@ -2,8 +2,8 @@ package application
 
 import (
 	"flag"
-	"jupyter/application/library"
-	"jupyter/config"
+	"jupiter/application/library"
+	"jupiter/config"
 )
 
 func Bootstrap() {

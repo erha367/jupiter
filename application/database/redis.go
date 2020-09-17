@@ -2,7 +2,7 @@ package database
 
 import (
 	red "github.com/gomodule/redigo/redis"
-	"jupyter/config"
+	"jupiter/config"
 	"log"
 	"time"
 )

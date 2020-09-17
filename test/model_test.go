@@ -1,7 +1,7 @@
 package test
 
 import (
-	"jupyter/application/utils"
+	"jupiter/application/utils"
 	"reflect"
 	"testing"
 	"time"
