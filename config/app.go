@@ -10,6 +10,7 @@ const (
 	EnvProd = "prod"
 	EnvTest = "test"
 	EnvDev  = "dev"
+	EnvIm   = "im"
 )
 
 //运行环境 prod、test、dev
@@ -90,15 +91,17 @@ func LoadConfig() {
 		configFileName += "_" + EnvProd
 	case EnvTest:
 		configFileName += "_" + EnvTest
+	case EnvIm:
+		configFileName += "_" + EnvIm
 	default:
 		configFileName += "_" + EnvDev
 	}
 	config := viper.New()
 	config.SetConfigName(configFileName)
 	config.SetConfigType("yaml")
-	/*
-		_, filename, _, _ := runtime.Caller(0)
-		config.AddConfigPath(path.Dir(filename))
+	/* -- 源代码编译后，必须放在相同的项目目录才可以运行，这里修改一下。
+	_, filename, _, _ := runtime.Caller(0)
+	config.AddConfigPath(path.Dir(filename))
 	*/
 	path2, _ := os.Getwd()
 	config.AddConfigPath(path2 + `/config`)
@@ -118,6 +121,8 @@ func Mode() string {
 	case EnvProd:
 		return "release"
 	case EnvTest:
+		return "test"
+	case EnvIm:
 		return "test"
 	default:
 		return "debug"
