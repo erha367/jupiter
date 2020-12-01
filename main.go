@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"github.com/fvbock/endless"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"jupiter/application"
@@ -10,11 +9,7 @@ import (
 	"jupiter/application/library"
 	"jupiter/config"
 	"jupiter/router"
-	"log"
-	"os"
 	"strconv"
-	"sync"
-	"syscall"
 )
 
 func main() {
@@ -32,6 +27,11 @@ func main() {
 	apiRouter := router.ApiRouter()
 	//等待组-热重启相关
 	pprof.Register(apiRouter)
+	apiRouter.Run(`:` + strconv.Itoa(config.App.HttpPort))
+
+	/* -- 以下为热重启代码，同时支持https，因为fork问题不兼容windows
+	//如果开启需要引入  "github.com/fvbock/endless"
+
 	w := sync.WaitGroup{}
 	w.Add(2)
 	//启动80端口
@@ -56,4 +56,5 @@ func main() {
 	w.Wait()
 	log.Println(`All servers stopped. Exiting.`)
 	os.Exit(0)
+	 */
 }

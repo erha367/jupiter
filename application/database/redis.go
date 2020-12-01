@@ -18,6 +18,7 @@ func InitRedis() {
 	redis.pool = &red.Pool{
 		MaxIdle:     50,
 		MaxActive:   500,
+		Wait:        true,
 		IdleTimeout: time.Duration(120),
 		Dial: func() (red.Conn, error) {
 			return red.Dial(

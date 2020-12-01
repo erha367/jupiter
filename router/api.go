@@ -8,10 +8,10 @@ import (
 
 func ApiRouter() (router *gin.Engine) {
 	router = gin.New()
-	//中间件
-	router.Use(middleware.Logger())
-	router.Use(middleware.Cors())
-	router.Use(gin.Recovery())
+	/*- 中间件 -*/
+	router.Use(middleware.Logger()) //日志记录
+	router.Use(middleware.Cors())   //跨域
+	router.Use(gin.Recovery())      //错误恢复
 	//demo
 	router.GET("/ping", controller.Ping)
 	//静态资源
