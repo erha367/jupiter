@@ -34,7 +34,8 @@ databases:
       maxOpenConnections: 100
 #日志配置
 logger:
-  path: "./log/"
+  #注意这里填写绝对路径 + /
+  path: /Users/yangsen/logs
   infoFile: gowebcast-info
   errorFile: gowebcast-error
 #redis配置
