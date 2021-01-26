@@ -3,7 +3,6 @@ package config
 import (
 	"flag"
 	"github.com/spf13/viper"
-	"os"
 )
 
 const (
@@ -13,36 +12,25 @@ const (
 	EnvIm   = "im"
 )
 
-//运行环境 prod、test、dev
+//运行环境 prod、test、dev、Im
 var Environment string
+var ConfigPath string
 
 var App app
 
 type app struct {
-	Debug     bool      `json:"debug"`
-	HttpPort  int       `json:"httpPort"`  //端口
-	HttpsPort int       `json:"httpsPort"` //端口
-	Sn        int       `json:"sn"`        //机器编号
-	Machines  int       `json:"machines"`  //部署机器数量
-	Name      string    `json:"name"`
-	Domain    string    `json:"domain"`
-	Databases databases `json:"databases"`
-	Logger    logger    `json:"logger"`
-	Redis     redis     `json:"redis"`
-	Kafka     kafka     `json:"kafka"`
-	Urls      urls      `json:"urls"`
-	CertFile  string    `json:"certFile"`
-	KeyFile   string    `json:"keyFile"`
-}
-
-type urls struct {
-	EoOs   eoOs `json:"eoOs"`
-	Course eoOs `json:"course"`
-}
-
-type eoOs struct {
-	Host          string `json:"host"`
-	GetCourseInfo string `json:"getCourseInfo"`
+	Debug          bool      `json:"debug"`
+	HttpPort       int       `json:"httpPort"`  //端口
+	HttpsPort      int       `json:"httpsPort"` //端口
+	RpcPort        int       `json:"rpcPort"`
+	Name           string    `json:"name"`
+	IP             string    `json:"ip"`
+	Databases      databases `json:"databases"`
+	Logger         logger    `json:"logger"`
+	Redis          redis     `json:"redis"`
+	CertFile       string    `json:"certFile"`
+	KeyFile        string    `json:"keyFile"`
+	LiveChatImgURL string    `json:"liveChatImgUrl"` //文件上传地址
 }
 
 type databases struct {
@@ -65,22 +53,19 @@ type logger struct {
 	Path      string `json:"path"`
 	InfoFile  string `json:"info_file"`
 	ErrorFile string `json:"error_file"`
+	Format    string `json:"format"`
 }
 
 type redis struct {
-	Host     string `json:"host"`
-	Password string `json:"password"`
-	Db       int    `json:"db"`
-}
-
-type kafka struct {
-	Brokers string `json:"brokers"`
-	Topic   string `json:"topic"`
-	GroupId string `json:"groupId"`
+	Cluster  []string `json:"cluster"`
+	Password string   `json:"password"`
+	MinIdle  int      `json:"minIdle"`
+	PoolSize int      `json:"poolSize"`
 }
 
 func init() {
 	flag.StringVar(&Environment, "env", EnvDev, "运行模式")
+	flag.StringVar(&ConfigPath, "config", "./config", "配置目录")
 }
 
 //加载配置
@@ -99,13 +84,11 @@ func LoadConfig() {
 	config := viper.New()
 	config.SetConfigName(configFileName)
 	config.SetConfigType("yaml")
-	path2, _ := os.Getwd()
-	config.AddConfigPath(path2 + `/config`)
+	config.AddConfigPath(ConfigPath)
 	readErr := config.ReadInConfig()
 	if readErr != nil {
 		panic("配置文件读取失败，原因：" + readErr.Error())
 	}
-
 	unmarshalErr := config.Unmarshal(&App)
 	if unmarshalErr != nil {
 		panic("配置文件初始化结构体失败，原因：" + unmarshalErr.Error())

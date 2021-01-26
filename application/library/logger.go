@@ -1,11 +1,11 @@
 package library
 
 import (
+	"jupiter/config"
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"io"
-	"jupiter/config"
 	"time"
 )
 
@@ -46,13 +46,14 @@ func InitLogger() {
 		zapcore.NewCore(encoder, zapcore.AddSync(infoWriter), infoLevel),
 		zapcore.NewCore(encoder, zapcore.AddSync(errorWriter), errorLevel),
 	)
-
-	Logger = zap.New(core, zap.AddCaller())
+	// 开启文件及行号
+	development := zap.Development()
+	Logger = zap.New(core, zap.AddCaller(), development)
 }
 
 func getWriter(filename string) io.Writer {
 	hook, err := rotatelogs.New(
-		filename+"-%Y%m%d"+".log",
+		filename+config.App.Logger.Format+".log",
 		rotatelogs.WithLinkName(filename),
 		rotatelogs.WithMaxAge(time.Hour*24*7),
 		rotatelogs.WithRotationTime(time.Hour*24),
@@ -61,5 +62,4 @@ func getWriter(filename string) io.Writer {
 		panic(err)
 	}
 	return hook
-
 }

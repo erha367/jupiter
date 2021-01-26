@@ -1,60 +1,47 @@
 package main
 
 import (
-	"context"
+	"fmt"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"jupiter/application"
 	"jupiter/application/database"
-	"jupiter/application/library"
 	"jupiter/config"
 	"jupiter/router"
+	"log"
+	"os"
+	"os/signal"
 	"strconv"
+	"syscall"
 )
 
 func main() {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
 	//系统初始化
 	defer database.CloseDatabases()
 	application.Bootstrap()
+	//初始化db
 	database.InitDatabases()
-	database.InitRedis()
+	//初始化redis
+	database.InitCluster()
+	//启动模式
 	gin.SetMode(config.Mode())
-	//异步队列
-	go library.Queue(ctx)
 	//路由
 	apiRouter := router.ApiRouter()
-	//等待组-热重启相关
+	//pprof
 	pprof.Register(apiRouter)
-	apiRouter.Run(`:` + strconv.Itoa(config.App.HttpPort))
-
-	/* -- 以下为热重启代码，同时支持https，因为fork问题不兼容windows
-	//如果开启需要引入  "github.com/fvbock/endless"
-
-	w := sync.WaitGroup{}
-	w.Add(2)
-	//启动80端口
+	//启动
+	errChan := make(chan error)
 	go func() {
-		err := endless.ListenAndServe(`:`+strconv.Itoa(config.App.HttpPort), apiRouter)
+		err := apiRouter.Run(`:` + strconv.Itoa(config.App.HttpPort))
 		if err != nil {
-			log.Println(err)
+			errChan <- err
 		}
-		log.Println(`stopped`, config.App.HttpPort)
-		w.Done()
 	}()
-	//启动443端口
 	go func() {
-		err := endless.ListenAndServeTLS(`:`+strconv.Itoa(config.App.HttpsPort), config.App.CertFile, config.App.KeyFile, apiRouter)
-		if err != nil {
-			log.Println(err)
-		}
-		log.Println(`stopped`, config.App.HttpsPort)
-		w.Done()
+		sigc := make(chan os.Signal)
+		signal.Notify(sigc, syscall.SIGINT, syscall.SIGTERM)
+		errChan <- fmt.Errorf("%s", <-sigc)
 	}()
-	log.Printf("Actual pid is %d", syscall.Getpid())
-	w.Wait()
-	log.Println(`All servers stopped. Exiting.`)
-	os.Exit(0)
-	 */
+	e := <-errChan
+	log.Println(`sys interrupt :`, e)
 }
