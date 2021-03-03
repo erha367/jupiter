@@ -35,6 +35,7 @@ func TestGRPCClient(t *testing.T) {
 	ctx, out := context.WithTimeout(context.Background(), time.Second)
 	defer out()
 	conn, err := grpc.DialContext(ctx, addrs[1], grpc.WithInsecure())
+	defer conn.Close()
 	rpcCli := proto.NewHelloServiceClient(conn)
 	res, err := rpcCli.SayHello(ctx, &proto.HelloRequest{
 		Name: "welcome to the USA,have a good day!",
