@@ -44,16 +44,16 @@ kill -1 pid   #main进程id
 ```
 jupiter/
 ├── application     // 应用
-│   ├── consul
+│   ├── consul      //consul相关组件
 │   ├── controller  //控制器
 │   ├── database    //数据库驱动
 │   ├── entity
-│   │   └── form
-│   ├── library
+│   │   └── form    //表单验证
+│   ├── library     //通用的公共包，如日志、curl请求
 │   ├── model       //db模型
 │   ├── proto       //proto文件及生成的包
 │   ├── rpc         //rpc服务
-│   └── utils
+│   └── utils       //本项目定义的常量等
 ├── config          //配置
 ├── router          //路由
 │   └── middleware  //中间件
