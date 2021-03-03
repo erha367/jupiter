@@ -8,13 +8,14 @@
 3. 上线时请备份好旧版本的 main 运行文件，作为版本回滚用
 4. 建议放在supervisor下管理，可及时重启服务
 ## 功能
-1. mysql\redis 支持
+1. mysql\redis 集群支持
 2. 内存缓存支持
-3. 日志
+3. zap日志
 4. debug追踪
-5. 异步队列
-6. 热重启
+5. ~~异步队列~~
+6. endless热重启
 7. https|http 双端口支持
+8. grpc+consul 支持
 ## 运行环境依赖
 - Centos
 - mysql
@@ -42,19 +43,21 @@ kill -1 pid   #main进程id
 ### 代码结构
 ```
 jupiter/
-├── application         //应用目录
-│   ├── controller      //控制器
-│   ├── database        //mysql & redis 核心
-│   ├── entity          //参数验证
+├── application     // 应用
+│   ├── consul
+│   ├── controller  //控制器
+│   ├── database    //数据库驱动
+│   ├── entity
 │   │   └── form
-│   ├── library         //通用扩展程序
-│   ├── model           //模型
-│   ├── service         //服务层逻辑
-│   └── utils           //公共函数、变量
-├── config              //配置文件
-├── router              //路由
-│   └── middleware      //中间件
-├── sql                 //建表sql
-├── static              //html等静态资源
-└── test                //测试用例
+│   ├── library
+│   ├── model       //db模型
+│   ├── proto       //proto文件及生成的包
+│   ├── rpc         //rpc服务
+│   └── utils
+├── config          //配置
+├── router          //路由
+│   └── middleware  //中间件
+├── sql             //建表sql
+├── static          //静态文件
+└── test            //测试用例
 ```
