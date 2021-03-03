@@ -31,6 +31,13 @@ type app struct {
 	CertFile       string    `json:"certFile"`
 	KeyFile        string    `json:"keyFile"`
 	LiveChatImgURL string    `json:"liveChatImgUrl"` //文件上传地址
+	Consul         Consul    `json:"consul"`
+}
+
+type Consul struct {
+	Host  string `json:"host"`
+	Tag   string `json:"tag"`
+	Token string `json:"token"`
 }
 
 type databases struct {

@@ -5,7 +5,9 @@ import (
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"jupiter/application"
+	"jupiter/application/consul"
 	"jupiter/application/database"
+	"jupiter/application/rpc"
 	"jupiter/config"
 	"jupiter/router"
 	"log"
@@ -25,6 +27,12 @@ func main() {
 	database.InitCluster()
 	//启动模式
 	gin.SetMode(config.Mode())
+	//启动grpc服务
+	go rpc.GrpcInit()
+	//consul注册
+	go consul.RegitserService()
+	//退出时反注册
+	defer consul.UnRegService()
 	//路由
 	apiRouter := router.ApiRouter()
 	//pprof
