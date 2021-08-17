@@ -5,8 +5,8 @@ httpPort: 88
 httpsPort: 0
 rpcPort: 10010
 #机器信息
-name: wsk-live
-ip: 10.0.32.131
+name: jupiter
+ip: 10.0.117.171
 #mysql配置
 databases:
   driver: mysql
@@ -53,11 +53,8 @@ kafka:
     zb:
       topic: webcast
       group: cast-1-dev
-#证书
-certFile: /Users/yangsen/zhengshu/server.crt
-keyFile: /Users/yangsen/zhengshu/server.key
 #consul相关配置
 consul:
   host: 'consul.sit13.dom:61170'
-  tag: wsk
+  tag: jup
   token: p2BE1AtpwPbrxZdC6k+eXA==

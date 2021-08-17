@@ -18,8 +18,7 @@ import (
 )
 
 func main() {
-	//系统初始化
-	defer database.CloseDatabases()
+	//初始化日志
 	application.Bootstrap()
 	//初始化db
 	database.InitDatabases()
@@ -33,6 +32,8 @@ func main() {
 	go consul.RegitserService()
 	//退出时反注册
 	defer consul.UnRegService()
+	//系统初始化
+	defer database.CloseDatabases()
 	//路由
 	apiRouter := router.ApiRouter()
 	//pprof
@@ -45,6 +46,7 @@ func main() {
 			errChan <- err
 		}
 	}()
+	//信号接收类似：ctrl+c
 	go func() {
 		sigc := make(chan os.Signal)
 		signal.Notify(sigc, syscall.SIGINT, syscall.SIGTERM)

@@ -22,19 +22,23 @@ func TestGRPCClient(t *testing.T) {
 		return
 	}
 	/*- 2.获取健康地址 -*/
-	services, _, err := client.Health().Service(`wsk-live`, `wsk`, true, nil)
+	services, _, err := client.Health().Service(`jupiter`, `jup`, true, nil)
 	if err != nil {
 		t.Log(err)
 		return
 	}
 	var addrs []string
 	for _, service := range services {
+		t.Log(service.Service)
 		addrs = append(addrs, net.JoinHostPort(service.Service.Address, strconv.Itoa(service.Service.Port)))
 	}
 	/*- 3.获取了好多地址，随机、轮询、加权等自己实现 -*/
 	ctx, out := context.WithTimeout(context.Background(), time.Second)
 	defer out()
-	conn, err := grpc.DialContext(ctx, addrs[1], grpc.WithInsecure())
+	conn, err := grpc.DialContext(ctx, addrs[0], grpc.WithInsecure())
+	if err != nil {
+		t.Log(err)
+	}
 	defer conn.Close()
 	rpcCli := proto.NewHelloServiceClient(conn)
 	res, err := rpcCli.SayHello(ctx, &proto.HelloRequest{
