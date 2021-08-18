@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"jupiter/application/library"
+	"log"
 	"net/url"
 	"sort"
 	"strings"
@@ -58,10 +59,19 @@ func Sign() gin.HandlerFunc {
 
 //根据请求url获取sign
 func GetSignByParms(req map[string][]string) string {
+	ignores := []string{}
+	if _, ok := req["ignoreSign"]; ok {
+		ignores = strings.Split(req["ignoreSign"][0], `,`)
+	}
 	parms := []string{}
 	for k, v := range req {
-		if k == `sign` {
+		if k == `sign` || k == `ignoreSign` {
 			continue
+		}
+		if len(ignores) > 0 {
+			if InArray(k, ignores) {
+				continue
+			}
 		}
 		tmp := k + `=` + v[0]
 		parms = append(parms, tmp)
@@ -69,8 +79,18 @@ func GetSignByParms(req map[string][]string) string {
 	sort.Strings(parms)
 	val := strings.Join(parms, "&")
 	xurl := val + `&key=classin`
+	log.Println(xurl)
 	data := []byte(xurl)
 	hash := md5.Sum(data)
 	sign := fmt.Sprintf("%x", hash) //将[]byte转成16进制
 	return sign
+}
+
+func InArray(val string, vals []string) bool {
+	for _, v := range vals {
+		if val == v {
+			return true
+		}
+	}
+	return false
 }
