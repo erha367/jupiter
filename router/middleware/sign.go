@@ -12,13 +12,13 @@ import (
 )
 
 /**
- * @description：TODO
+ * @description：sign中间件验证
  * @author     ：yangsen
  * @date       ：2021/8/18 下午2:34
  * @company    ：eeo.cn
  */
 
-//websocket连接池插件
+//sign中间件验证
 func Sign() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		switch c.Request.Method {
