@@ -28,8 +28,6 @@ type app struct {
 	Databases      databases `json:"databases"`
 	Logger         logger    `json:"logger"`
 	Redis          redis     `json:"redis"`
-	CertFile       string    `json:"certFile"`
-	KeyFile        string    `json:"keyFile"`
 	LiveChatImgURL string    `json:"liveChatImgUrl"` //文件上传地址
 	Consul         Consul    `json:"consul"`
 }
