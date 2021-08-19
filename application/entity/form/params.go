@@ -1,7 +1,6 @@
 package form
 
-type CastInfo struct {
-	ClassId       int64 `form:"classId" binding:"required"`
-	ClientClassId int64 `form:"clientClassId"`
-	EndTimestamp  int64 `form:"endTimestamp" binding:"required"`
+type UserInfo struct {
+	UserName string `form:"username" binding:"required"`
+	Password string `form:"password" binding:"required"`
 }

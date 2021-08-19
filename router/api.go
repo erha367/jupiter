@@ -15,5 +15,7 @@ func ApiRouter() (router *gin.Engine) {
 	//demo
 	router.GET("/ping", middleware.Sign(), controller.Ping)
 	router.POST("/sign", middleware.Sign(), controller.Ping)
+	router.GET("/login", controller.Login)
+	router.GET("/jwt", middleware.Jwtm(), controller.Jwt)
 	return
 }
