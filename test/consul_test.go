@@ -22,7 +22,7 @@ func TestGRPCClient(t *testing.T) {
 		return
 	}
 	/*- 2.获取健康地址 -*/
-	services, _, err := client.Health().Service(`jupiter`, `jup`, true, nil)
+	services, _, err := client.Health().Service(`yunpan`, `jup`, true, nil)
 	if err != nil {
 		t.Log(err)
 		return

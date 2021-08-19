@@ -5,25 +5,24 @@ httpPort: 88
 httpsPort: 0
 rpcPort: 10010
 #机器信息
-name: jupiter
-ip: 10.0.117.171
+name: yunpan
 #mysql配置
 databases:
   driver: mysql
   list:
-    - name: eo_oslive
-      username: root
-      password: 123456
-      port: 3306
-      host: 127.0.0.1
+    - name: eo_osfile
+      username: eeosfile
+      password: T13_fajuwTf
+      port: 62111
+      host: web-mysql-os-writer-01.db.sit13.dom
       type: master
       maxIdleConnections: 40
       maxOpenConnections: 100
-    - name: eo_oslive
-      username: root
-      password: 123456
-      port: 3306
-      host: 127.0.0.1
+    - name: eo_osfile
+      username: eeosfile
+      password: T13_fajuwTf
+      port: 62111
+      host: web-mysql-os-writer-01.db.sit13.dom
       type: slave
       maxIdleConnections: 40
       maxOpenConnections: 100
@@ -31,8 +30,8 @@ databases:
 logger:
   path: /Users/yangsen/logs/
   format: -%Y%m%d
-  infoFile: gowebcast-info
-  errorFile: gowebcast-error
+  infoFile: pan-info
+  errorFile: pan-error
 #redis配置
 redis:
   cluster:
