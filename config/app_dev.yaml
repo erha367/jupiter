@@ -5,7 +5,7 @@ httpPort: 8806
 httpsPort: 0
 rpcPort: 10010
 #机器信息
-name: yunpan
+name: cloud
 #mysql配置
 databases:
   driver: mysql
@@ -30,8 +30,8 @@ databases:
 logger:
   path: ./logs/
   format: -%Y%m%d
-  infoFile: jupiter-info
-  errorFile: jupiter-error
+  infoFile: cloud-info
+  errorFile: cloud-error
 #redis配置
 redis:
   cluster:
