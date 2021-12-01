@@ -1,7 +1,7 @@
 #开启pprof
 debug: false
 #监听端口
-httpPort: 88
+httpPort: 8806
 httpsPort: 0
 rpcPort: 10010
 #机器信息
@@ -28,10 +28,10 @@ databases:
       maxOpenConnections: 100
 #日志
 logger:
-  path: /Users/yangsen/logs/
+  path: ./logs/
   format: -%Y%m%d
-  infoFile: pan-info
-  errorFile: pan-error
+  infoFile: jupiter-info
+  errorFile: jupiter-error
 #redis配置
 redis:
   cluster:

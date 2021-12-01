@@ -20,7 +20,7 @@ func main() {
 	//初始化db
 	database.InitDatabases()
 	//初始化redis
-	database.InitCluster()
+	//database.InitCluster()
 	//启动模式
 	gin.SetMode(config.Mode())
 	//系统初始化

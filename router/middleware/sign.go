@@ -2,11 +2,9 @@ package middleware
 
 import (
 	"crypto/md5"
-	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"jupiter/application/library"
-	"log"
 	"net/url"
 	"sort"
 	"strings"
@@ -26,14 +24,14 @@ func Sign() gin.HandlerFunc {
 		case `POST`:
 			err := c.Request.ParseForm()
 			if err != nil {
-				library.FailJson(c, err)
+				library.Fail(c, 102)
 				c.Abort()
 			}
 			val := c.Request.PostForm
 			sign := GetSignByParms(val)
 			sign2 := c.PostForm(`sign`)
 			if sign != sign2 {
-				library.FailJson(c, errors.New(`sign value err`))
+				library.Fail(c, 102)
 				c.Abort()
 			}
 		case `GET`:
@@ -41,18 +39,17 @@ func Sign() gin.HandlerFunc {
 			path := strings.Split(urlx, `?`)
 			v, err := url.ParseQuery(path[len(path)-1])
 			if err != nil {
-				library.FailJson(c, err)
+				library.Fail(c, 102)
 				c.Abort()
 			}
 			sign := GetSignByParms(v)
-			//log.Println(sign)
 			sign2 := c.Query(`sign`)
 			if sign != sign2 {
-				library.FailJson(c, errors.New(`sign value err`))
+				library.Fail(c, 102)
 				c.Abort()
 			}
 		default:
-
+			//啥也不干
 		}
 	}
 }
@@ -79,7 +76,6 @@ func GetSignByParms(req map[string][]string) string {
 	sort.Strings(parms)
 	val := strings.Join(parms, "&")
 	xurl := val + `&key=classin`
-	log.Println(xurl)
 	data := []byte(xurl)
 	hash := md5.Sum(data)
 	sign := fmt.Sprintf("%x", hash) //将[]byte转成16进制

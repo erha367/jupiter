@@ -13,9 +13,7 @@ func ApiRouter() (router *gin.Engine) {
 	router.Use(middleware.Cors())   //跨域
 	router.Use(gin.Recovery())      //错误恢复
 	//demo
-	router.GET("/ping", middleware.Sign(), controller.Ping)
-	router.POST("/sign", middleware.Sign(), controller.Ping)
-	router.GET("/login", controller.Login)
-	router.GET("/jwt", middleware.Jwtm(), controller.Jwt)
+	router.GET("/ping", controller.Ping)
+
 	return
 }
