@@ -7,14 +7,11 @@ import (
 
 const (
 	EnvProd = "prod"
-	EnvTest = "test"
-	EnvDev  = "dev"
-	EnvIm   = "im"
 )
 
-//运行环境 prod、test、dev、Im
 var Environment string
 var ConfigPath string
+var EnvSlice []string
 
 var App app
 
@@ -69,22 +66,27 @@ type redis struct {
 }
 
 func init() {
-	flag.StringVar(&Environment, "env", EnvDev, "运行模式")
+	flag.StringVar(&Environment, "env", `dev`, "运行模式")
 	flag.StringVar(&ConfigPath, "config", "./config", "配置目录")
+	//环境列表
+	EnvSlice = []string{`dev`, `13`, `14`, `im`, `prod`}
 }
 
 //加载配置
 func LoadConfig() {
 	var configFileName = "app"
-	switch Environment {
-	case EnvProd:
-		configFileName += "_" + EnvProd
-	case EnvTest:
-		configFileName += "_" + EnvTest
-	case EnvIm:
-		configFileName += "_" + EnvIm
-	default:
-		configFileName += "_" + EnvDev
+	var notMatch int
+	//根据环境选择配置
+	for _, v := range EnvSlice {
+		if v == Environment {
+			configFileName += "_" + v
+			notMatch = 1
+			break
+		}
+	}
+	//未匹配上的走dev
+	if notMatch == 0 {
+		configFileName += "_dev"
 	}
 	config := viper.New()
 	config.SetConfigName(configFileName)
@@ -104,10 +106,6 @@ func Mode() string {
 	switch Environment {
 	case EnvProd:
 		return "release"
-	case EnvTest:
-		return "test"
-	case EnvIm:
-		return "test"
 	default:
 		return "debug"
 	}

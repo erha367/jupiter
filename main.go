@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"jupiter/application"
-	"jupiter/application/database"
+	"jupiter/application/library"
 	"jupiter/config"
 	"jupiter/router"
 	"log"
@@ -18,16 +18,16 @@ func main() {
 	//初始化日志
 	application.Bootstrap()
 	//初始化db
-	database.InitDatabases()
+	library.InitDatabases()
 	//初始化redis
-	//database.InitCluster()
+	//library.InitCluster()
 	//启动模式
 	gin.SetMode(config.Mode())
 	//系统初始化
-	defer database.CloseDatabases()
+	defer library.CloseDatabases()
 	//路由
 	apiRouter := router.ApiRouter()
-	//pprof
+	//pprof监控（默认关闭）
 	//pprof.Register(apiRouter)
 	//启动
 	errChan := make(chan error)

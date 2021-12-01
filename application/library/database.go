@@ -1,11 +1,10 @@
-package database
+package library
 
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"go.uber.org/zap"
-	"jupiter/application/library"
 	"jupiter/config"
 	"log"
 	"time"
@@ -24,12 +23,12 @@ func (log *databaseLogger) Print(v ...interface{}) {
 		position = v[1]
 	)
 	if level == "sql" {
-		library.Logger.Debug("sql log：",
+		Logger.Debug("sql log：",
 			zap.String("SQL", v[3].(string)),
 			zap.String("params", fmt.Sprintf("%v", v[4])),
 			zap.String("position", position.(string)))
 	} else {
-		library.Logger.Error("mysql err：", zap.String("log", fmt.Sprintf("%v", v[2])))
+		Logger.Error("mysql err：", zap.String("log", fmt.Sprintf("%v", v[2])))
 	}
 }
 
@@ -86,9 +85,9 @@ func Begin(dbName string) *gorm.DB {
 func CloseDatabases() {
 	for key, conn := range databaseContainer {
 		if err := conn.DB().Close(); err != nil {
-			library.Logger.Error("关闭数据库链接失败:", zap.String("database", key), zap.Error(err))
+			Logger.Error("关闭数据库链接失败:", zap.String("database", key), zap.Error(err))
 		} else {
-			library.Logger.Info("成功关闭数据库", zap.String("database", key))
+			Logger.Info("成功关闭数据库", zap.String("database", key))
 		}
 	}
 }
