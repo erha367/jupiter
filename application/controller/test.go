@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"jupiter/application/entity/form"
+	"jupiter/application/validator"
 	"jupiter/application/library"
 	"log"
 )
@@ -21,7 +21,7 @@ func Ping(c *gin.Context) {
 
 //登录成功返回json-web-token
 func Login(c *gin.Context) {
-	var uInfo form.UserInfo
+	var uInfo validator.UserInfo
 	if err := c.ShouldBind(&uInfo); err != nil {
 		library.FailJson(c, err)
 		return

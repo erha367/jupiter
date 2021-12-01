@@ -2,12 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"jupiter/application"
-	"jupiter/application/consul"
 	"jupiter/application/database"
-	"jupiter/application/rpc"
 	"jupiter/config"
 	"jupiter/router"
 	"log"
@@ -26,18 +23,12 @@ func main() {
 	database.InitCluster()
 	//启动模式
 	gin.SetMode(config.Mode())
-	//启动grpc服务
-	go rpc.GrpcInit()
-	//consul注册
-	go consul.RegitserService()
-	//退出时反注册
-	defer consul.UnRegService()
 	//系统初始化
 	defer database.CloseDatabases()
 	//路由
 	apiRouter := router.ApiRouter()
 	//pprof
-	pprof.Register(apiRouter)
+	//pprof.Register(apiRouter)
 	//启动
 	errChan := make(chan error)
 	go func() {

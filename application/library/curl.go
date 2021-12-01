@@ -51,7 +51,7 @@ func CurlPost(host, path, params string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Content-Type", "application/x-www-validator-urlencoded")
 	req.Header.Set("Cookie", "name=anny")
 	resp, err = client.Do(req)
 	if err != nil {
