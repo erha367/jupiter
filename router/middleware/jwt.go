@@ -3,7 +3,7 @@ package middleware
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
-	"jupiter/application/library"
+	"jupiter/library"
 	"time"
 )
 

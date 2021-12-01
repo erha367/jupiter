@@ -30,11 +30,11 @@ go env -w GOPROXY=https://goproxy.io,direct
 # 1、进入到项目目录
 go mod tidy
 # 2、编译项目（mac开发环境-->linux测试-->生产环境）
-CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build 
 # 编译后的二进制文件（main）连同config目录一起放到线上项目目录即可（确保项目目录权限755）
 # 运行
-# 测试环境
-./main -env=test
+# 开发环境
+./main -env=dev
 # 线上环境
 ./main -env=prod
 # 平滑重启
@@ -43,20 +43,17 @@ kill -1 pid   #main进程id
 ## 其他
 ### 代码结构
 ```
-jupiter/
-├── application     // 应用
-│   ├── consul      //consul相关组件
+jupiter
+├── application //业务相关
 │   ├── controller  //控制器
-│   ├── database    //数据库驱动
-│   ├── entity
-│   │   └── form    //表单验证
-│   ├── library     //通用的公共包，如日志、curl请求
-│   ├── model       //db模型
-│   ├── proto       //proto文件及生成的包
-│   ├── rpc         //rpc服务
-│   └── utils       //本项目定义的常量等
-├── config          //配置
-├── router          //路由
-│   └── middleware  //中间件
-└── test            //测试用例
+│   ├── domain      //领域
+│   ├── entity      //实体
+│   ├── model       //模型
+│   ├── service     //服务
+│   └── validator   //验证器
+├── config  //配置
+├── library //公共组件
+├── logs    //日志（可以定义位置）
+└── router  //路由表
+    └── middleware  //中间件   
 ```

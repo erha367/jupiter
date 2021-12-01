@@ -4,7 +4,7 @@ import (
 	"crypto/md5"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"jupiter/application/library"
+	"jupiter/library"
 	"net/url"
 	"sort"
 	"strings"

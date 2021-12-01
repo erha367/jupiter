@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	UUIDS "github.com/satori/go.uuid"
 	"go.uber.org/zap"
-	"jupiter/application/library"
+	"jupiter/library"
 	"time"
 )
 
