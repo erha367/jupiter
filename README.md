@@ -1,4 +1,4 @@
-# jupiter 基于Gin实现的web框架
+# jupiter 基于Gin实现的web框架【采用领域驱动设计】
 作者：杨森 sen.yang@eeoa.com
 #### 注意！要根据实际情况修改配置！！！
 1. 修改mysql配置

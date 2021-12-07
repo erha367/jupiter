@@ -1,4 +1,4 @@
-package model
+package entity
 
 // EeoCourseFiles 群文件关系表
 type EeoCourseFiles struct {

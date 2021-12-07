@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"jupiter/application"
 	"jupiter/config"
 	"jupiter/library"
 	"jupiter/router"
@@ -16,7 +15,7 @@ import (
 
 func main() {
 	//初始化日志
-	application.Bootstrap()
+	library.Bootstrap()
 	//初始化db
 	library.InitDatabases()
 	//初始化redis

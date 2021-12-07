@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"jupiter/application/controller"
+	"jupiter/interfaces/controller"
 	"jupiter/router/middleware"
 )
 
@@ -15,6 +15,6 @@ func ApiRouter() (router *gin.Engine) {
 	router.Use(middleware.Cors())   //跨域
 	router.Use(gin.Recovery())      //错误恢复
 	//需要走中间件的写在下面
-
+	router.GET("/course/folder", controller.GetFolder)
 	return
 }

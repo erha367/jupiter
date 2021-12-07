@@ -1,8 +1,9 @@
-package model
+package repository
 
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
+	"jupiter/domain/entity"
 )
 
 type _EeoFilesLackMgr struct {
@@ -23,14 +24,14 @@ func (obj *_EeoFilesLackMgr) GetTableName() string {
 }
 
 // Get 获取
-func (obj *_EeoFilesLackMgr) Get() (result EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) Get() (result entity.EeoFilesLack, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Find(&result).Error
 
 	return
 }
 
 // Gets 获取批量结果
-func (obj *_EeoFilesLackMgr) Gets() (results []*EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) Gets() (results []*entity.EeoFilesLack, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Find(&results).Error
 
 	return
@@ -59,7 +60,7 @@ func (obj *_EeoFilesLackMgr) WithAddtime(addtime int) Option {
 }
 
 // GetByOption 功能选项模式获取
-func (obj *_EeoFilesLackMgr) GetByOption(opts ...Option) (result EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) GetByOption(opts ...Option) (result entity.EeoFilesLack, err error) {
 	options := options{
 		query: make(map[string]interface{}, len(opts)),
 	}
@@ -73,7 +74,7 @@ func (obj *_EeoFilesLackMgr) GetByOption(opts ...Option) (result EeoFilesLack, e
 }
 
 // GetByOptions 批量功能选项模式获取
-func (obj *_EeoFilesLackMgr) GetByOptions(opts ...Option) (results []*EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) GetByOptions(opts ...Option) (results []*entity.EeoFilesLack, err error) {
 	options := options{
 		query: make(map[string]interface{}, len(opts)),
 	}
@@ -89,56 +90,56 @@ func (obj *_EeoFilesLackMgr) GetByOptions(opts ...Option) (results []*EeoFilesLa
 //////////////////////////enume case ////////////////////////////////////////////
 
 // GetFromID 通过id获取内容 ID
-func (obj *_EeoFilesLackMgr) GetFromID(id int64) (result EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) GetFromID(id int64) (result entity.EeoFilesLack, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("id = ?", id).Find(&result).Error
 
 	return
 }
 
 // GetBatchFromID 批量唯一主键查找 ID
-func (obj *_EeoFilesLackMgr) GetBatchFromID(ids []int64) (results []*EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) GetBatchFromID(ids []int64) (results []*entity.EeoFilesLack, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("id IN (?)", ids).Find(&results).Error
 
 	return
 }
 
 // GetFromFileID 通过file_id获取内容 文件ID
-func (obj *_EeoFilesLackMgr) GetFromFileID(fileID int64) (result EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) GetFromFileID(fileID int64) (result entity.EeoFilesLack, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("file_id = ?", fileID).Find(&result).Error
 
 	return
 }
 
 // GetBatchFromFileID 批量唯一主键查找 文件ID
-func (obj *_EeoFilesLackMgr) GetBatchFromFileID(fileIDs []int64) (results []*EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) GetBatchFromFileID(fileIDs []int64) (results []*entity.EeoFilesLack, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("file_id IN (?)", fileIDs).Find(&results).Error
 
 	return
 }
 
 // GetFromFileSavePath 通过file_save_path获取内容 文件保存路径
-func (obj *_EeoFilesLackMgr) GetFromFileSavePath(fileSavePath string) (results []*EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) GetFromFileSavePath(fileSavePath string) (results []*entity.EeoFilesLack, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("file_save_path = ?", fileSavePath).Find(&results).Error
 
 	return
 }
 
 // GetBatchFromFileSavePath 批量唯一主键查找 文件保存路径
-func (obj *_EeoFilesLackMgr) GetBatchFromFileSavePath(fileSavePaths []string) (results []*EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) GetBatchFromFileSavePath(fileSavePaths []string) (results []*entity.EeoFilesLack, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("file_save_path IN (?)", fileSavePaths).Find(&results).Error
 
 	return
 }
 
 // GetFromAddtime 通过addtime获取内容 添加时间
-func (obj *_EeoFilesLackMgr) GetFromAddtime(addtime int) (results []*EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) GetFromAddtime(addtime int) (results []*entity.EeoFilesLack, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("addtime = ?", addtime).Find(&results).Error
 
 	return
 }
 
 // GetBatchFromAddtime 批量唯一主键查找 添加时间
-func (obj *_EeoFilesLackMgr) GetBatchFromAddtime(addtimes []int) (results []*EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) GetBatchFromAddtime(addtimes []int) (results []*entity.EeoFilesLack, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("addtime IN (?)", addtimes).Find(&results).Error
 
 	return
@@ -147,14 +148,14 @@ func (obj *_EeoFilesLackMgr) GetBatchFromAddtime(addtimes []int) (results []*Eeo
 //////////////////////////primary index case ////////////////////////////////////////////
 
 // FetchByPrimaryKey primay or index 获取唯一内容
-func (obj *_EeoFilesLackMgr) FetchByPrimaryKey(id int64) (result EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) FetchByPrimaryKey(id int64) (result entity.EeoFilesLack, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("id = ?", id).Find(&result).Error
 
 	return
 }
 
 // FetchIndexByFileID  获取多个内容
-func (obj *_EeoFilesLackMgr) FetchIndexByFileID(fileID int64) (results []*EeoFilesLack, err error) {
+func (obj *_EeoFilesLackMgr) FetchIndexByFileID(fileID int64) (results []*entity.EeoFilesLack, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("file_id = ?", fileID).Find(&results).Error
 
 	return
