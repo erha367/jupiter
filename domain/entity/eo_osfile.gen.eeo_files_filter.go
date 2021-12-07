@@ -1,9 +1,8 @@
-package repository
+package entity
 
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-	"jupiter/domain/entity"
 )
 
 type _EeoFilesFilterMgr struct {
@@ -24,14 +23,14 @@ func (obj *_EeoFilesFilterMgr) GetTableName() string {
 }
 
 // Get 获取
-func (obj *_EeoFilesFilterMgr) Get() (result entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) Get() (result EeoFilesFilter, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Find(&result).Error
 
 	return
 }
 
 // Gets 获取批量结果
-func (obj *_EeoFilesFilterMgr) Gets() (results []*entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) Gets() (results []*EeoFilesFilter, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Find(&results).Error
 
 	return
@@ -60,7 +59,7 @@ func (obj *_EeoFilesFilterMgr) WithFileSize(fileSize int64) Option {
 }
 
 // GetByOption 功能选项模式获取
-func (obj *_EeoFilesFilterMgr) GetByOption(opts ...Option) (result entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) GetByOption(opts ...Option) (result EeoFilesFilter, err error) {
 	options := options{
 		query: make(map[string]interface{}, len(opts)),
 	}
@@ -74,7 +73,7 @@ func (obj *_EeoFilesFilterMgr) GetByOption(opts ...Option) (result entity.EeoFil
 }
 
 // GetByOptions 批量功能选项模式获取
-func (obj *_EeoFilesFilterMgr) GetByOptions(opts ...Option) (results []*entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) GetByOptions(opts ...Option) (results []*EeoFilesFilter, err error) {
 	options := options{
 		query: make(map[string]interface{}, len(opts)),
 	}
@@ -90,56 +89,56 @@ func (obj *_EeoFilesFilterMgr) GetByOptions(opts ...Option) (results []*entity.E
 //////////////////////////enume case ////////////////////////////////////////////
 
 // GetFromID 通过id获取内容 主键,自增id
-func (obj *_EeoFilesFilterMgr) GetFromID(id int64) (result entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) GetFromID(id int64) (result EeoFilesFilter, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("id = ?", id).Find(&result).Error
 
 	return
 }
 
 // GetBatchFromID 批量唯一主键查找 主键,自增id
-func (obj *_EeoFilesFilterMgr) GetBatchFromID(ids []int64) (results []*entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) GetBatchFromID(ids []int64) (results []*EeoFilesFilter, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("id IN (?)", ids).Find(&results).Error
 
 	return
 }
 
 // GetFromFileID 通过file_id获取内容 文件id
-func (obj *_EeoFilesFilterMgr) GetFromFileID(fileID int64) (results []*entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) GetFromFileID(fileID int64) (results []*EeoFilesFilter, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("file_id = ?", fileID).Find(&results).Error
 
 	return
 }
 
 // GetBatchFromFileID 批量唯一主键查找 文件id
-func (obj *_EeoFilesFilterMgr) GetBatchFromFileID(fileIDs []int64) (results []*entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) GetBatchFromFileID(fileIDs []int64) (results []*EeoFilesFilter, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("file_id IN (?)", fileIDs).Find(&results).Error
 
 	return
 }
 
 // GetFromFileMd5 通过file_md5获取内容 文件md5
-func (obj *_EeoFilesFilterMgr) GetFromFileMd5(fileMd5 string) (result entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) GetFromFileMd5(fileMd5 string) (result EeoFilesFilter, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("file_md5 = ?", fileMd5).Find(&result).Error
 
 	return
 }
 
 // GetBatchFromFileMd5 批量唯一主键查找 文件md5
-func (obj *_EeoFilesFilterMgr) GetBatchFromFileMd5(fileMd5s []string) (results []*entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) GetBatchFromFileMd5(fileMd5s []string) (results []*EeoFilesFilter, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("file_md5 IN (?)", fileMd5s).Find(&results).Error
 
 	return
 }
 
 // GetFromFileSize 通过file_size获取内容 文件大小，单位为b
-func (obj *_EeoFilesFilterMgr) GetFromFileSize(fileSize int64) (results []*entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) GetFromFileSize(fileSize int64) (results []*EeoFilesFilter, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("file_size = ?", fileSize).Find(&results).Error
 
 	return
 }
 
 // GetBatchFromFileSize 批量唯一主键查找 文件大小，单位为b
-func (obj *_EeoFilesFilterMgr) GetBatchFromFileSize(fileSizes []int64) (results []*entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) GetBatchFromFileSize(fileSizes []int64) (results []*EeoFilesFilter, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("file_size IN (?)", fileSizes).Find(&results).Error
 
 	return
@@ -148,14 +147,14 @@ func (obj *_EeoFilesFilterMgr) GetBatchFromFileSize(fileSizes []int64) (results 
 //////////////////////////primary index case ////////////////////////////////////////////
 
 // FetchByPrimaryKey primay or index 获取唯一内容
-func (obj *_EeoFilesFilterMgr) FetchByPrimaryKey(id int64) (result entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) FetchByPrimaryKey(id int64) (result EeoFilesFilter, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("id = ?", id).Find(&result).Error
 
 	return
 }
 
 // FetchUniqueByIFileMd5 primay or index 获取唯一内容
-func (obj *_EeoFilesFilterMgr) FetchUniqueByIFileMd5(fileMd5 string) (result entity.EeoFilesFilter, err error) {
+func (obj *_EeoFilesFilterMgr) FetchUniqueByIFileMd5(fileMd5 string) (result EeoFilesFilter, err error) {
 	err = obj.DB.Table(obj.GetTableName()).Where("file_md5 = ?", fileMd5).Find(&result).Error
 
 	return

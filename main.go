@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"jupiter/config"
 	"jupiter/library"
@@ -27,7 +28,9 @@ func main() {
 	//路由
 	apiRouter := router.ApiRouter()
 	//pprof监控（默认关闭）
-	//pprof.Register(apiRouter)
+	if config.App.Debug {
+		pprof.Register(apiRouter)
+	}
 	//启动
 	errChan := make(chan error)
 	go func() {
