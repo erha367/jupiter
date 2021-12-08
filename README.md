@@ -3,6 +3,8 @@
 #### 注意！要根据实际情况修改配置！！！
 1. 修改mysql配置
 2. 修改redis配置
+## golang领域驱动介绍
+https://qw41hb3siw.feishu.cn/docs/doccnBS4JYVal8WYMD1Sfj96SDb
 ## 上线须知（重要）
 1. 所有上线分支均为master
 2. 非上线代码禁止合并到master
@@ -13,10 +15,6 @@
 2. 内存缓存支持
 3. zap日志
 4. debug追踪
-5. ~~异步队列~~
-6. ~~endless热重启~~
-7. ~~https|http 双端口支持~~
-8. grpc+consul 支持
 ## 运行环境依赖
 - Centos
 - mysql
@@ -37,23 +35,28 @@ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
 ./main -env=dev
 # 线上环境
 ./main -env=prod
+# env的枚举值为 `dev`, `13`, `14`, `im`, `prod` 等
 # 平滑重启
 kill -1 pid   #main进程id
 ```
 ## 其他
 ### 代码结构
 ```
-jupiter
-├── application //业务相关
-│   ├── controller  //控制器
-│   ├── domain      //领域
-│   ├── entity      //实体
-│   ├── model       //模型
-│   ├── service     //服务
-│   └── validator   //验证器
-├── config  //配置
-├── library //公共组件
-├── logs    //日志（可以定义位置）
-└── router  //路由表
-    └── middleware  //中间件   
+jupiter/
+├── application    //应用层
+├── config         //配置文件
+├── domain        //领域层
+│   ├── entity    //实体
+│   ├── repository    //仓库
+│   ├── service    //服务
+│   └── valobj    //值对象（约定常量）
+├── interfaces    //接口层
+│   ├── commands    //脚本入口
+│   ├── controller    //控制器
+│   ├── rpc            //rpc接口
+│   └── validator    //验证器
+├── library    //基础层
+├── main.go    //主程序入口
+└── router    //路由
+    └── middleware    //中间件  
 ```

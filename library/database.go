@@ -39,7 +39,7 @@ var databaseContainer = make(map[string]*gorm.DB)
 func InitDatabases() {
 	dialect := config.App.Databases.Driver
 	for _, database := range config.App.Databases.List {
-		dns := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=true&loc=Local",
+		dns := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=true&loc=Local",
 			database.Username,
 			database.Password,
 			database.Host,
